@@ -100,14 +100,13 @@ export default {
   methods: {
   async saveData() {
     if(this.message){
-      this.isshowDesc= false
       const newMessage = {
-        id: new uuidv4(), // Tạo đối tượng người dùng mới
+        id: new uuidv4(),
         name: this.name,
         message: this.message,
         answer:this.answer
       }
-      console.log(this.chatId, this.dataMessage);
+      console.log(this.chatId, this.dataMessage , 'chatid datameg');
       let newMessages
       if(this.dataMessage) {
         newMessages = JSON.parse(JSON.stringify(this.dataMessage))
@@ -124,21 +123,13 @@ export default {
         console.log(err)
       })
     }
-  }
-},
-mounted: function () {
-    const w = document.querySelector(".chatbox");
-    document.querySelector(".input-container").style.width =
-      w.clientWidth + "px";
-    this.isshowDesc = false;
-      axios.get(`http://localhost:3000/dataChat/${this.chatId}`) // Gọi API GET để lấy danh sách người dùng từ server
-      .then(res => {
-        this.dataMessage = res.data.messages
-      })
-      .catch(err => {
-        console.error(err)   
-      })
   },
+  async loadData() {
+      // Gọi API từ server để lấy dữ liệu
+
+},
+ 
+ 
   // call api open ai 
   // methods: {
   //   async fetchData() {
@@ -159,9 +150,22 @@ mounted: function () {
   //     this.message = '';
   //   },
   // },
-  
-  
-};
+  },
+  mounted: function () {
+    const w = document.querySelector(".chatbox");
+    document.querySelector(".input-container").style.width = w.clientWidth + "px";
+    console.log(w)
+    axios.get(`http://localhost:3000/dataChat/${this.chatId}`) 
+      .then(res => {
+        this.dataMessage = res.data.messages
+        
+      })
+      .catch(err => {
+        console.error(err)
+      })
+  },
+
+}  
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
