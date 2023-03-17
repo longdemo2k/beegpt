@@ -1,26 +1,64 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <!-- begin sibar -->
+  <!-- begin modal -->
+      <div >
+        <UpdateModal
+        v-if="showModal"
+        @close-modal="offModel" 
+      ></UpdateModal>
+      </div>
+  <ChatBoxVue :key="keyChatBox" :chat-id="chatId" @rerendData="rerendData()"  />
+  <SideBarVue @toggle-modal="toggleModal" @setData="setData" @update="update" :side-bar-compose="sideBarCompose"/>
+ 
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import UpdateModal from "./components/UpdateModal.vue";
+import SideBarVue from "./components/SideBar.vue";
+import ChatBoxVue from "./components/Chatbox.vue";
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    HelloWorld
-  }
-}
+    ChatBoxVue,
+    SideBarVue,
+    UpdateModal,
+  },
+  data(){
+    return {
+      chatId: "",
+      keyChatBox : 0,
+      sideBarCompose: 0,
+      dataMessage: [],
+        showModal: false,
+      }
+  },
+  methods:{
+    rerendData() {
+      console.log(111)
+      this.keyChatBox += 1
+    },
+    setData(data, chatId){
+      this.chatId = chatId
+      this.dataMessage = data
+      this.keyChatBox += 1
+    },
+    update(){
+      this.sideBarCompose += 1
+    },
+    toggleModal() {
+      this.showModal = true
+    },
+    offModel(){
+      this.showModal = false
+    }
+  },
+};
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+#app{
+  display: flex;
+  
 }
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700&display=swap');
 </style>
