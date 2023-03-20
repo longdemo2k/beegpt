@@ -53,12 +53,20 @@ table {
 	border-spacing: 0;
 }
 button,input{
+	
     border: none;
     outline: none;
 }
+button{
+	cursor: pointer;
+	list-style-type: s;
+}
+/*  */
 :root {
+	--button-dark-primary: #043F6A;
 	--text-dark-color:rgba(0, 0, 0, 1);
 	--text-white-color: #DFECF1;
+
 	--sideBar-color: linear-gradient(to bottom,rgba(9, 98, 118, 1),rgba(14, 22, 98, 0.92));
 	--chatBox-color: linear-gradient(to right,rgba(9, 78, 99, 1),rgba(4, 33, 64, 1));
 	--chatBox-light-color: rgba(239, 239, 239, 1);

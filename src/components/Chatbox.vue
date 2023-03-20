@@ -1,6 +1,6 @@
 <template>
   <div class="chatbox" :class="isLightTheme ? 'lightContent':'darkContent'">
-      <div v-show="isshowDesc" class="chatbox-content">
+      <div v-if="isshowDesc" class="chatbox-content">
         <div  class="chatbox-show">
           <h1>BeeGPT</h1>
           <div class="chatbox-list">
@@ -45,7 +45,7 @@
         
       </li>
     </ul>
-    <div class="input-container">
+    <div class="input-container">   
       <div class="input-container-body">
         <img
         
@@ -53,13 +53,20 @@
           alt="Icon 1"
           class="input-icon input-icon-left blueIcon"
         />
-        <input type="text" v-model="message" @keydown.enter="saveData" placeholder="say hello !"/>
+        <input type="text" @keyup="handleInput" v-model="message" @keydown.enter="saveData" placeholder="say hello !"/>
         <img
           @click="saveData"
           src="../assets/icon/sendSVG.svg"
           alt="Icon 2"
           class="input-icon input-icon-right blueIcon"
         />
+      </div>
+      <div v-if="showList" class="inputOption">
+        <ul  class="input-list-options">
+          <li class="input-item-option" v-for="option in options" :key="option" @click="selectOption(option)">
+          <button>{{ option }}</button>
+          </li>
+        </ul>
       </div>
     </div>
   </div>
@@ -68,6 +75,7 @@
 <script>
   import axios from 'axios';
   import { v4 as uuidv4 } from 'uuid'
+  
 export default {
   name: "chatBox",
   data() {
@@ -79,8 +87,9 @@ export default {
       message: '',
       answer:'how can i help you',
       data12: null,
-      isshowDesc: true,
-      apiKey: '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'
+      isshowDesc: false,
+      showList: false,
+      options: ['/phone', '/mail', '/ip','/cccd_vn','/taxnumber','/passport']
     };
   },
   props: {
@@ -88,11 +97,6 @@ export default {
     chatId: String || Number,
   },
   computed:{
-    getDataMessage() {
-      console.log(this.dataMessage)
-      if(this.dataMessage && this.dataMessage.length) return this.dataMessage
-      return []
-    },
     isLightTheme(){
       return this.$store.state.theme === 'light' ? true :false;
     }
@@ -106,7 +110,6 @@ export default {
         message: this.message,
         answer:this.answer
       }
-      console.log(this.chatId, this.dataMessage , 'chatid datameg');
       let newMessages
       if(this.dataMessage) {
         newMessages = JSON.parse(JSON.stringify(this.dataMessage))
@@ -124,198 +127,53 @@ export default {
       })
     }
   },
-  async loadData() {
-      // Gọi API từ server để lấy dữ liệu
+  handleInput(event){
+    if (event.key === '/') {
+        this.showList = true
+      } else if (event.key === 'Enter') {
+        this.showList = false
+      } else if (this.message.startsWith('/')) {
+        const inputText = this.message.slice(1)
+        if (!this.options.includes(inputText)) {
+          this.showList = false
+        }
+      } else {
+        this.showList = false
+      }
+  },
+  selectOption(option) {
+      this.message = `${option.replace(/\s+/g, "")}`;
+      this.showList = false;
+    }
 
 },
- 
- 
-  // call api open ai 
-  // methods: {
-  //   async fetchData() {
-  //     const config = {
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //         'Authorization': 'Bearer ' + this.apiKey
-  //       }
-  //     }
-  //     const data = {
-  //         "model": "text-davinci-003",
-  //         "prompt": this.message,
-  //         "max_tokens": 100,
-  //         "temperature": 0.1
-  //       }
-  //     const response = await axios.post('https://api.openai.com/v1/completions', data, config);
-  //     this.data12 = response.data.choices[0].text;
-  //     this.message = '';
-  //   },
-  // },
-  },
-  mounted: function () {
-    const w = document.querySelector(".chatbox");
-    document.querySelector(".input-container").style.width = w.clientWidth + "px";
-    console.log(w)
+created() {
+    
     axios.get(`http://localhost:3000/dataChat/${this.chatId}`) 
       .then(res => {
-        this.dataMessage = res.data.messages
-        
+          this.dataMessage = res.data.messages
+          if(this.dataMessage){
+            this.isshowDesc = false
+          } else{
+            this.isshowDesc = true
+          }
       })
       .catch(err => {
         console.error(err)
       })
-  },
+      
+ },
+ mounted(){
+  const w = document.querySelector(".chatbox");
+    document.querySelector(".input-container").style.width = w.clientWidth + "px";
+ }
+ 
 
 }  
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style >
-.chatbox {
-  flex: 1;
-  background-image: var(--chatBox-color);
-  margin-left: 252px;
-  min-height: 1000px;
-  color: #043f6a;
-  font-family: 'Inter', sans-serif;;
-}
-.input-container {
-  position: fixed;
-  bottom: 12px;
-  display: flex;
-  width: 100%;
-  justify-content: center;
-}
-.input-container-body {
-  width: 738px;
-  display: flex;
-  justify-content: center;
-}
+@import url(../assets/styles/chatbox.css);
 
-input[type="text"] {
-  background-color: #043f6a;
-  width: 768px;
-  padding: 12px;
-  border-radius: 8px;
-  border: none;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5);
-  font-size: 16px;
-  font-weight: 500;
-}
-.lightContent input[type="text"]{
-  background-color: var(--text-white-color);
-}
-
-.input-icon {
-  height: 16px;
-  margin: auto 8px;
-  cursor: pointer;
-}
-
-.input-icon-left {
-  margin-right: 8px;
-}
-
-.input-icon-right {
-  margin-left: 8px;
-}
-.chatbox-list {
-    margin-top: 40px;
-}
-.chatbox-item {
-  width: 33.333%;
-  background-color: rgba(255, 255, 255, 0.11); 
-  margin-right: 8px;
-  margin-bottom: 8px;
-  font-weight: 400;
-  line-height: 21.78px;
-  padding: 10px;
-  border-radius: 10px;
-}
-.chatbox-content{
-  margin-top: 100px;
-  text-align: center;
-  padding: 0 170px;
-  
-}
-.chat-box-row{
-  display: flex;
-  align-items: start;
-  justify-content: center;
-  
-}
-.chatbox-content h1{
-  line-height: 67.84px;
-  font-weight: 700;
-  font-size: 59px;
-  
-}
-.topItem{
-  background-color: transparent;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.topItem img{
-  width: 27px;
-  margin-bottom: 8px;
-}
-.darkContent{
-  color:var(--text-white-color);
-}
-.lightContent{
-  background-image: var(--text-white-color) ;
-  color: var(--text-dark-color);
-}
-.lightContent .chatbox-item:not(.topItem) {
-  background-color: rgba(33, 13, 90, 0.11);
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-}
-.lightContent .darkIcon{
-  filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(305deg) brightness(103%) contrast(103%);
-}
-.lightContent .blueIcon{
-  filter: invert(53%) sepia(72%) saturate(2874%) hue-rotate(159deg) brightness(90%) contrast(105%);
-}
-svg{
-  color: #fff;
-}
-.chatbox_list{
-  display: flex;
-  flex-direction: column;
-  max-width: 48rem;
-  box-sizing: border-box;
-  margin: 20px auto;
-}
-.chatbox_item{
-  display: flex;
-  flex-direction: column;
-}
-.chatbox_message{
-  display: flex;
-  margin-top: 20px;
-}
-.chatbox_message img{
-  height: 37px;
-}
-.chatbox_message span{
-  margin-left: 30px;
-  padding: 8px 20px;
-  background-color: #043f6a;
-  border-radius: 10px;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-}
-.lightContent .chatbox_message span{
-  background-color: #FFFFFF;
-}
-.chatbox_answer{
-
-}
-.lightItem{
-  
-}
-.darkItem{
-} 
-.themeDark{
-
-}
 </style>
