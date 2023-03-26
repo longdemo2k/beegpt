@@ -1,7 +1,4 @@
-#red {
-    filter: invert(56%) sepia(49%) saturate(5724%) hue-rotate(336deg) brightness(99%) contrast(94%);
-  }
-  .sidebar {
+ .sidebar {
     width: 252px;
     height: 100%;
     background-image: var(--sideBar-color);

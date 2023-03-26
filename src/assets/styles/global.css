@@ -1,9 +1,4 @@
-*{
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-	font-family: 'Inter', sans-serif;
-}
+
 /* http://meyerweb.com/eric/tools/css/reset/ 
    v2.0 | 20110126
    License: none (public domain)
@@ -16,7 +11,7 @@ del, dfn, em, img, ins, kbd, q, s, samp,
 small, strike, strong, sub, sup, tt, var,
 b, u, i, center,
 dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
+fieldset, form, legend,
 table, caption, tbody, tfoot, thead, tr, th, td,
 article, aside, canvas, details, embed, 
 figure, figcaption, footer, header, hgroup, 
@@ -24,9 +19,7 @@ menu, nav, output, ruby, section, summary,
 time, mark, audio, video {
 	margin: 0;
 	padding: 0;
-	border: 0;
-	font-size: 100%;
-	font: inherit;
+	border: 0;	
 	vertical-align: baseline;
 }
 /* HTML5 display-role reset for older browsers */
@@ -52,6 +45,16 @@ table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
+
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+	font-family: 'Inter', sans-serif;
+}
+
+
 button,input{
 	
     border: none;
@@ -62,7 +65,9 @@ button{
 	list-style-type: s;
 }
 /*  */
+
 :root {
+	font-size: 62.5%;
 	--button-dark-primary: #043F6A;
 	--text-dark-color:rgba(0, 0, 0, 1);
 	--text-white-color: #DFECF1;

@@ -1,0 +1,33 @@
+<form>
+    <div>
+      <label for="name">Name:</label>
+      <input type="text" v-model="formData.name" :class="{'is-invalid': $v.formData.name.$error}" />
+      <div class="invalid-feedback" v-if="!$v.formData.name.required">
+        Name is required
+      </div>
+      <div class="invalid-feedback" v-else-if="!$v.formData.name.minLength">
+        Name must be at least 3 characters
+      </div>
+    </div>
+    <div>
+      <label for="email">Email:</label>
+      <input type="email" v-model="formData.email" :class="{'is-invalid': $v.formData.email.$error}" />
+      <div class="invalid-feedback" v-if="!$v.formData.email.required">
+        Email is required
+      </div>
+      <div class="invalid-feedback" v-else-if="!$v.formData.email.email">
+        Email must be a valid email address
+      </div>
+    </div>
+    <div>
+      <label for="age">Age:</label>
+      <input type="number" v-model="formData.age" :class="{'is-invalid': $v.formData.age.$error}" />
+      <div class="invalid-feedback" v-if="!$v.formData.age.required">
+        Age is required
+      </div>
+      <div class="invalid-feedback" v-else-if="!$v.formData.age.min">
+        Age must be at least 18 years old
+      </div>
+    </div>
+    <button type="submit" :disabled="!$v.formData.$valid">Submit</button>
+  </form>

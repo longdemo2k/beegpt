@@ -1,0 +1,66 @@
+.wrapper{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.login{
+  max-width: 268.38px;
+  text-align: center;
+}
+.beegpt__logo{
+    margin-bottom: 1.686rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.beegpt__logo img{
+    width: 73.03px;
+}
+.beegpt__title{
+    font-weight: 700;
+    font-size: 2.7rem;
+    line-height: 45.99px;
+    width: 100%;
+    margin-bottom: 20px;
+
+}
+.login__input{
+   
+}
+.login__input input::placeholder{
+    font-size: 16px;
+}
+.login__btn{
+    width: 100%;
+    background-color: rgba(23, 50, 227, 1);
+    color: #fff;
+    font-size: 1.3rem;
+    border-radius: 10px;
+    margin-bottom: 18px;
+    padding: 15px;
+
+}
+.login__line{
+    margin-bottom: 20px;
+}
+.login__signUp{
+    font-size: 1.3rem;
+    margin-bottom: 18px;
+    line-height: 21.78px;
+    font-weight: 400;
+}
+.login__social{
+    width: 100%;
+    border: 1px solid rgba(182, 182, 182, 1);
+    padding: 16px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 7px;
+    cursor: pointer;
+}   
+.login__social img{
+    width: 21px;
+    margin-right: 20px;
+}

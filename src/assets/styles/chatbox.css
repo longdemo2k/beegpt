@@ -2,33 +2,33 @@
     flex: 1;
     background-image: var(--chatBox-color);
     margin-left: 252px;
-    min-height: 1000px;
+    min-height: 100%;
     color: #043f6a;
-    font-family: 'Inter', sans-serif;;
+    font-family: 'Inter', sans-serif; 
   }
   .input-container {
     position: fixed;
     display: flex;
-    flex-direction: column;
-    bottom: 12px;
-    display: flex;
     width: 100%;
     justify-content: center;
+    bottom: 12px;
+
   }
   .input-container-body {
-    width: 100%;
+
     display: flex;
     justify-content: center;
+    
   }
   
-  input[type="text"] {
+  .input-container-body input[type="text"] {
     background-color: #043f6a;
-    width: 768px;
+    width: 50em;
     padding: 12px;
     border-radius: 8px;
     border: none;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5);
-    font-size: 16px;
+    font-size: 1.6rem;
     font-weight: 500;
   }
   .lightContent input[type="text"]{
@@ -128,6 +128,7 @@
     height: 37px;
   }
   .chatbox_message span{
+    font-size: 1.6rem;
     margin-left: 30px;
     padding: 8px 20px;
     background-color: #043f6a;

@@ -173,7 +173,7 @@ created() {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style >
+<style scoped >
 @import url(../assets/styles/chatbox.css);
 
 </style>
