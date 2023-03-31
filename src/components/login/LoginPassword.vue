@@ -3,14 +3,14 @@
      <div class="login">
             <ImageTitle title="WELLCOME BACK"/>
             <form @submit.prevent="onSubmit">
-            <InputComponent @input="handleInput" labelInput="Email"/>
-            <InputComponent @input="handleInput" labelInput="Password"/>
+            <InputComponent @input="handleInput" inputType="Email"/>
+            <InputComponent @input="handleInput" inputType="Password"/>
             <router-link to="/auth/login/password">
             <button class="login__btn" type="submit">Continue</button>
             </router-link>
             </form>
             <p class="login__signUp">Don’t have an account?
-                <a href="#">Sign up</a>
+              <router-link to="/auth/signup"><a href="#">Sign up</a> </router-link> 
             </p>
     </div>
   </div>
@@ -24,6 +24,11 @@ export default {
     components:{
       ImageTitle,
       InputComponent
+    },
+    data(){
+      return{
+        
+      }
     },
     methods:{
       handleInput(data){

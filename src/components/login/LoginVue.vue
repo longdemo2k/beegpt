@@ -3,13 +3,13 @@
         <div class="login">
             <ImageTitle title="WELLCOME BACK"/>
             <form @submit.prevent="onSubmit">
-            <InputComponent labelInput="Email"/>
+            <InputComponent inputType="Email"/>
             <router-link to="/auth/login/password">
             <button class="login__btn" type="submit">Continue</button>
             </router-link>
             </form>
             <p class="login__signUp">Don’t have an account?
-                <a href="#">Sign up</a>
+               <router-link to="/auth/signup"> <a href="#">Sign up</a> </router-link> 
             </p>
             <p class="login__line">Or</p>
             <div class="login__social">

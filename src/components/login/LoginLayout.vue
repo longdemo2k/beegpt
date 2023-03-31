@@ -4,7 +4,7 @@
     <p class="auth__desc">Log in with your OpenAI account to continue</p>
     <div class="auth__btn">
       <router-link to="/auth/login"> <button class="auth__btn--left">Log in</button></router-link>
-      <router-link to="/home"> <button class="auth__btn--right">Sign up</button></router-link> 
+      <router-link to="/auth/signup"> <button class="auth__btn--right">Sign up</button></router-link> 
     </div>
   
   </div>

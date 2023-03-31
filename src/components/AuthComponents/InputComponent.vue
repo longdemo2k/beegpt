@@ -1,12 +1,14 @@
 <template>
-  <div class="myInput-container">
+  <div :class="{validate: isValidate }" class="myInput-container">
     <input
       class="myInput-input"
-      v-bind:type="isPassword? 'Password': 'Text'"
+      v-bind:type="isPassword ? 'Password': 'Text'"
       placeholder=" "
-      @input="updateValue($event.target.value)"
+      v-model="inputValue"
+      @blur="validateMessage"
     />
-    <label class="myInput-label">{{ labelInput }}</label>
+    <label class="myInput-label">{{ inputType }}</label>
+    <p >  {{errorMessage}} </p>
   </div>
 </template>
   
@@ -14,7 +16,7 @@
 export default {
   name: "MyInput",
   props: {
-    labelInput: {
+    inputType: {
       type: String,
       required: true,
     },
@@ -22,17 +24,32 @@ export default {
 
   data() {
     return {
-      isPassword : this.labelInput === 'Password' ? true : false,
-      type:'',
+      isPassword: this.inputType === "Password" ? true : false,
+      inputValue: "",
+      isValidate: false,
+      errorMessage: " ",
     };
   },
-
   methods: {
-    updateValue(newValue) {
-      this.$emit("input", [newValue]);
+    checkInputType(){
+      
     },
+    validateMessage() {
+      if (this.inputValue === '') {
+        this.isValidate = true;
+        this.errorMessage = 'This field is required';
+    } else {
+      this.isValidate = false;
+      this.errorMessage = ' ';
+      this.isValidate = false;
+    }
+    },
+    validateEmail(email) {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(email);
   },
-};
+  },
+}
 </script>
   <style scoped>
 .myInput-container {
@@ -49,8 +66,14 @@ export default {
   border: 1px solid  rgba(167, 167, 167, 1);
 
   border-radius: 10px;
-}
 
+}
+.validate .myInput-input{
+  border: 1px solid  red;
+}
+.validate p {
+  color: red;
+}
 .myInput-input::placeholder {
   color: #000;
 }
@@ -67,7 +90,8 @@ export default {
 .myInput-input:not(:placeholder-shown)+.myInput-label,
 .myInput-input:focus + .myInput-label {
   top: -8px;
-  left: 13px;
+  left
+  : 13px;
   z-index: 10;
   color: rgba(23, 50, 227, 1);
   background-color: #fff;

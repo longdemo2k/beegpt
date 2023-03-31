@@ -1,12 +1,14 @@
 .wrapper{
     height: 100vh;
+    
     display: flex;
     justify-content: center;
     align-items: center;
 }
 .login{
-  max-width: 268.38px;
-  text-align: center;
+    text-align: center;
+    min-width: 268.38px;
+    max-width: 400px;
 }
 .beegpt__logo{
     margin-bottom: 1.686rem;
